@@ -6,7 +6,7 @@ const years =  document.querySelector('#years');
 const monthlyPayment = document.getElementById('monthly-payment');
 const totalPayment = document.getElementById('total-payment');
 const totalInterest = document.getElementById('total-interest');
- 
+const card = document.querySelector('.card');
 
 
 
@@ -38,7 +38,7 @@ function calculateResults(e){
     totalPayment.value = (monthly * calculatedPayments).toFixed(2);
     totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2);
   } else{
-    showError("Please Check Your Details");
+    showError("Please Check Your Details!!");
   }
 
   e.preventDefault();
@@ -47,6 +47,23 @@ function calculateResults(e){
 function showError(msg){
 
   // Create A Div
-  
+  const errorDiv = document.createElement('div');
+
+  // Add class
+  errorDiv.className = "alert alert-danger";
+
+  // Get parent element
+  const heading = document.querySelector('.heading');
+
+  // Add text and append
+  errorDiv.appendChild(document.createTextNode(msg));
+
+  // Insert error above heading
+  card.insertBefore(errorDiv, heading);
+
+  // Clear error after 3 seconds
+  setTimeout(()=> {
+    document.querySelector('.alert').remove();
+  } , 3000 )
 
 }
