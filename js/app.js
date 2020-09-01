@@ -12,7 +12,17 @@ const card = document.querySelector('.card');
 
 
 // Event Listeners
-form.addEventListener('submit', calculateResults);
+form.addEventListener('submit', function(e){
+  // Hide Results
+  document.getElementById('results').style.display = 'none';
+
+  // Show Loader
+  document.getElementById('loading').style.display = 'block';
+
+  setTimeout(calculateResults, 2000);
+
+  e.preventDefault();
+});
 
 
 
@@ -22,7 +32,7 @@ form.addEventListener('submit', calculateResults);
 
 
 // Functions
-function calculateResults(e){
+function calculateResults(){
   
   const principal = parseFloat(amount.value);
   const calculatedInterest = parseFloat(interest.value) / 100 / 12;
@@ -37,14 +47,23 @@ function calculateResults(e){
     monthlyPayment.value = monthly.toFixed(2);
     totalPayment.value = (monthly * calculatedPayments).toFixed(2);
     totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2);
+
+    // Show Results
+    document.getElementById('results').style.display = 'block';
+
+    // Hide Spinner
+    document.getElementById('loading').style.display = 'none';
   } else{
     showError("Please Check Your Details!!");
   }
-
-  e.preventDefault();
 }
 
 function showError(msg){
+  // Show Results
+  document.getElementById('results').style.display = 'none';
+
+  // Hide Spinner
+  document.getElementById('loading').style.display = 'none';
 
   // Create A Div
   const errorDiv = document.createElement('div');
